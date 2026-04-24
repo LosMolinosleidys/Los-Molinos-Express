@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Molinos Arepas Express</title>
+
+<style>
+body{
+margin:0;
+font-family: Arial;
+background:#fafafa;
+}
+
+header{
+background:black;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+header img{
+width:150px;
+}
+
+.container{
+padding:12px;
+max-width:1000px;
+margin:auto;
+}
+
+h2{
+border-bottom:2px solid #f4a261;
+padding-bottom:5px;
+font-size:20px;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:12px;
+}
+
+@media(min-width:600px){
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+.producto{
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
+}
+
+.producto img{
+width:100%;
+height:140px;
+object-fit:cover;
+}
+
+.info{
+padding:10px;
+}
+
+.info p{
+font-size:14px;
+color:#555;
+}
+
+button{
+width:100%;
+padding:10px;
+background:#f4a261;
+border:none;
+color:white;
+font-weight:bold;
+border-radius:8px;
+margin-top:5px;
+}
+
+.eliminar{
+background:red;
+width:auto;
+padding:4px 8px;
+}
+
+.total{
+font-size:20px;
+font-weight:bold;
+}
+
+.flotante{
+position:fixed;
+bottom:15px;
+right:15px;
+background:#25D366;
+color:white;
+padding:15px;
+border-radius:50%;
+font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="los-molinos/logo.png">
+<h2>LOS MOLINOS</h2>
+<p>Arepas Express</p>
+<p>📞 323 506 4237</p>
+</header>
+
+<div class="container">
+
+<h2>Datos del cliente</h2>
+<input id="nombre" placeholder="Nombre y apellidos">
+<input id="telefono" placeholder="Teléfono">
+<input id="direccion" placeholder="Dirección">
+<select id="tipo">
+<option>Domicilio</option>
+<option>Recoger en tienda</option>
+</select>
+<input id="pago" placeholder="Medio de pago">
+
+<!-- TRADICIONALES -->
+<h2>Arepas Tradicionales</h2>
+<div class="grid">
+
+<div class="producto">
+<img src="los-molinos/pollo.png">
+<div class="info">
+<h3>Arepa con Pollo</h3>
+<p>Arepa rellena con jugoso pollo desmechado, queso rallado, acompañada de cebolla y crujiente papita ripio, todo con el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$11.000</strong></p>
+<button onclick="add('Arepa con Pollo',11000,this)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="los-molinos/carne.png">
+<div class="info">
+<h3>Arepa con Carne</h3>
+<p>Arepa rellena con deliciosa carne de res desmechada, queso rallado, acompañada de cebolla y crujiente papita ripio, todo con el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$12.000</strong></p>
+<button onclick="add('Arepa con Carne',12000,this)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="los-molinos/chicharron.jpg">
+<div class="info">
+<h3>Arepa con Chicharrón</h3>
+<p>Arepa rellena con crujiente chicharrón, queso asado y queso rallado, acompañado de cebolla y crujiente papita ripio, todo con el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$13.000</strong></p>
+<button onclick="add('Arepa con Chicharrón',13000,this)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="los-molinos/chorizo.jpg">
+<div class="info">
+<h3>Arepa con Chorizo</h3>
+<p>Arepa rellena con delicioso chorizo paisa, queso rallado, acompañada de cebolla grillé y crujiente papita ripio, todo con el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$11.000</strong></p>
+<button onclick="add('Arepa con Chorizo',11000,this)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="los-molinos/queso.jpg">
+<div class="info">
+<h3>Arepa con Queso</h3>
+<p>Arepa rellena con queso asado y queso rallado, acompañada de cebolla y crujiente papita ripio, todo con el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$9.500</strong></p>
+<button onclick="add('Arepa con Queso',9500,this)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="los-molinos/jamon.jpg">
+<div class="info">
+<h3>Jamón y Queso</h3>
+<p>Arepa rellena con jamón de cerdo, queso rallado, acompañada de cebolla y crujiente papita ripio, todo con el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$10.500</strong></p>
+<button onclick="add('Jamón y Queso',10500,this)">Agregar</button>
+</div>
+</div>
+
+</div>
+
+<!-- ESPECIALES -->
+<h2>Arepas Especiales</h2>
+<div class="grid">
+
+<div class="producto">
+<img src="los-molinos/monteriana.png">
+<div class="info">
+<h3>La Monteriana</h3>
+<p>Arepa rellena con jugoso pollo desmechado, crocante tocineta, aguacate y maduritos, acompañada de queso asado, cebolla y maíz tierno. Coronada con papita ripio, queso rallado y el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$18.500</strong></p>
+<button onclick="add('Monteriana',18500,this)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="los-molinos/mexicana.jpg">
+<div class="info">
+<h3>La Mexicana</h3>
+<p>Arepa rellena con carne desmechada, guacamole y maíz tierno, acompañada de pico de gallo, cebolla encurtida y queso rallado. Coronada con papita ripio, jalapeños y el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$17.500</strong></p>
+<button onclick="add('Mexicana',17500,this)">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="los-molinos/casa.jpg">
+<div class="info">
+<h3>Arepa de la Casa</h3>
+<p>Arepa rellena con una mezcla contundente de pollo y carne desmechada, acompañada de chorizo paisa y queso rallado. Con cebolla grillé, papita ripio y el toque especial de nuestra salsa de la casa.</p>
+<p><strong>$20.000</strong></p>
+<button onclick="add('Arepa de la Casa',20000,this)">Agregar</button>
+</div>
+</div>
+
+</div>
+
+<!-- ADICIONES -->
+<h2>Adiciones</h2>
+<button onclick="add('Queso asado',3000,this)">Queso asado $3.000</button>
+<button onclick="add('Queso rallado',2000,this)">Queso rallado $2.000</button>
+<button onclick="add('Pollo desmechado',3000,this)">Pollo $3.000</button>
+<button onclick="add('Carne desmechada',3000,this)">Carne $3.000</button>
+<button onclick="add('Chicharrón',3000,this)">Chicharrón $3.000</button>
+<button onclick="add('Chorizo',3000,this)">Chorizo $3.000</button>
+<button onclick="add('Tocineta',2000,this)">Tocineta $2.000</button>
+<button onclick="add('Maíz dulce',1000,this)">Maíz dulce $1.000</button>
+<button onclick="add('Madurito',1000,this)">Madurito $1.000</button>
+<button onclick="add('Aguacate',2000,this)">Aguacate $2.000</button>
+<button onclick="add('Jalapeño',1500,this)">Jalapeño $1.500</button>
+
+<!-- BEBIDAS -->
+<h2>Bebidas</h2>
+<button onclick="add('Coca Cola 250ml',2000,this)">Coca Cola 250ml $2.000</button>
+<button onclick="add('Quatro 250ml',2000,this)">Quatro 250ml $2.000</button>
+<button onclick="add('Agua saborizada 280ml',1500,this)">Agua saborizada $1.500</button>
+<button onclick="add('Manzana 250ml',2000,this)">Manzana $2.000</button>
+<button onclick="add('Hit Tropical',2000,this)">Hit Tropical $2.000</button>
+<button onclick="add('Hit Naranja Piña',2000,this)">Hit Naranja Piña $2.000</button>
+
+<!-- CARRITO -->
+<h2>Carrito</h2>
+<ul id="carrito"></ul>
+<p class="total">Total: $<span id="total">0</span></p>
+
+<button onclick="vaciar()">Vaciar carrito</button>
+<button onclick="enviar()">Enviar pedido</button>
+
+</div>
+
+<div class="flotante" onclick="enviar()">📲</div>
+
+<script>
+let carrito=[];
+let total=0;
+let contador={};
+
+function render(){
+let lista=document.getElementById("carrito");
+lista.innerHTML="";
+total=0;
+
+carrito.forEach((item,i)=>{
+total+=item.precio;
+lista.innerHTML+=`<li>${item.nombre} - $${item.precio}
+<button class="eliminar" onclick="del(${i})">X</button></li>`;
+});
+
+document.getElementById("total").textContent=total;
+}
+
+function add(nombre,precio,btn){
+carrito.push({nombre,precio});
+contador[nombre]=(contador[nombre]||0)+1;
+btn.textContent="Agregar ("+contador[nombre]+")";
+render();
+}
+
+function del(i){
+carrito.splice(i,1);
+render();
+}
+
+function vaciar(){
+carrito=[];
+render();
+}
+
+function enviar(){
+let nombre=document.getElementById("nombre").value;
+let tel=document.getElementById("telefono").value;
+let dir=document.getElementById("direccion").value;
+let tipo=document.getElementById("tipo").value;
+let pago=document.getElementById("pago").value;
+
+if(!nombre || !tel) return alert("Complete sus datos");
+
+let msg="🧾 *LOS MOLINOS AREPAS EXPRESS*\n\n";
+msg+="Cliente: "+nombre+"\nTel: "+tel+"\nEntrega: "+tipo+"\nDirección: "+dir+"\nPago: "+pago+"\n\nPedido:\n";
+
+carrito.forEach(i=>{
+msg+="- "+i.nombre+" $"+i.precio+"\n";
+});
+
+msg+="\nTOTAL: $"+total;
+
+window.open("https://wa.me/573235064237?text="+encodeURIComponent(msg));
+}
+</script>
+
+</body>
+</html>
