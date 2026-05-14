@@ -126,12 +126,13 @@ font-size:18px;
 <h2>Datos del cliente</h2>
 <input id="nombre" placeholder="Nombre y apellidos">
 <input id="telefono" placeholder="Teléfono">
-<input id="direccion" placeholder="Dirección">
+<input id="direccion" placeholder="Dirección y Punto de Referencia Por Favor">
 <select id="tipo">
 <option>Domicilio</option>
 <option>Recoger en tienda</option>
 </select>
 <input id="pago" placeholder="Medio de pago">
+<input id="observacion" placeholder="Escriba aqui detalles de su pedido. Ej. sin cebolla">
 
 <!-- TRADICIONALES -->
 <h2>Arepas Tradicionales</h2>
@@ -243,21 +244,23 @@ font-size:18px;
 <button onclick="add('Carne desmechada',3000,this)">Carne $3.000</button>
 <button onclick="add('Chicharrón',3000,this)">Chicharrón $3.000</button>
 <button onclick="add('Chorizo',3000,this)">Chorizo $3.000</button>
-<button onclick="add('jamon',3000,this)">Jamon $3.000</button>
+<button onclick="add('jamon',2000,this)">Jamon $2.000</button>
 <button onclick="add('Tocineta',1500,this)">Tocineta $1.500</button>
 <button onclick="add('Maíz dulce',1000,this)">Maíz dulce $1.000</button>
 <button onclick="add('Madurito',1000,this)">Madurito $1.000</button>
-<button onclick="add('Aguacate',2000,this)">Guacamole $2.000</button>
+<button onclick="add('Aguacate',1000,this)">Guacamole $1.000</button>
 <button onclick="add('Jalapeño',1500,this)">Jalapeño $1.500</button>
 
 <!-- BEBIDAS -->
 <h2>Bebidas</h2>
 <button onclick="add('Coca Cola 250ml',2500,this)">Coca Cola 250ml $2.500</button>
-<button onclick="add('Quatro 250ml',2000,this)">Quatro 250ml $2.000</button>
+<button onclick="add('Colombiana 250ml',2000,this)">Colombiana 250ml $2.000</button>
 <button onclick="add('Agua saborizada 280ml',1500,this)">Agua saborizada $1.500</button>
 <button onclick="add('Manzana 250ml',2000,this)">Manzana $2.000</button>
 <button onclick="add('Hit Tropical',2000,this)">Hit Tropical $2.000</button>
 <button onclick="add('Hit Naranja Piña',2000,this)">Hit Naranja Piña $2.000</button>
+<button onclick="add('Hit Mora',2000,this)">Hit Mora $2.000</button>
+<button onclick="add('Hit Mango',2000,this)">Hit Mango $2.000</button>
 
 <!-- CARRITO -->
 <h2>Carrito</h2>
@@ -291,20 +294,74 @@ document.getElementById("total").textContent=total;
 }
 
 function add(nombre,precio,btn){
-carrito.push({nombre,precio});
-contador[nombre]=(contador[nombre]||0)+1;
-btn.textContent="Agregar ("+contador[nombre]+")";
-render();
+
+  carrito.push({nombre,precio});
+
+  contador[nombre]=(contador[nombre]||0)+1;
+
+  // Guardar texto original
+  if(!btn.dataset.original){
+    btn.dataset.original = btn.innerText;
+  }
+
+  // Mostrar nombre + contador
+  btn.textContent = btn.dataset.original + " (" + contador[nombre] + ")";
+
+  render();
 }
+
 
 function del(i){
-carrito.splice(i,1);
-render();
+
+  let producto = carrito[i];
+
+  // Restar contador
+  if(producto){
+    contador[producto.nombre]--;
+
+    // Buscar botón correcto
+    document.querySelectorAll("button").forEach(btn => {
+
+      if(btn.dataset.original &&
+         btn.dataset.original.includes(producto.nombre)){
+
+        if(contador[producto.nombre] > 0){
+
+          btn.textContent =
+            btn.dataset.original +
+            " (" + contador[producto.nombre] + ")";
+
+        } else {
+
+          btn.textContent = btn.dataset.original;
+        }
+      }
+
+    });
+  }
+
+  carrito.splice(i,1);
+
+  render();
 }
 
+
 function vaciar(){
-carrito=[];
-render();
+
+  carrito=[];
+
+  contador={};
+
+  // Reiniciar botones
+  document.querySelectorAll("button").forEach(btn => {
+
+    if(btn.dataset.original){
+      btn.textContent = btn.dataset.original;
+    }
+
+  });
+
+  render();
 }
 
 function enviar(){
