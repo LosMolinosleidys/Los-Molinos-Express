@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Los Molinos Arepas Express</title>
 
+<button onclick="resumenDia()">
+📊 Ver resumen del día
+</button>
+}
+
 <style>
 body{
 margin:0;
@@ -364,6 +369,48 @@ function vaciar(){
   render();
 }
 
+function resumenDia(){
+
+  let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+
+  let hoy = new Date().toLocaleDateString();
+
+  let totalVenta = 0;
+
+  let productos = {};
+
+  ventas.forEach(v => {
+
+    if(v.fecha == hoy){
+
+      v.productos.forEach(p => {
+
+        totalVenta += p.precio;
+
+        productos[p.nombre] =
+          (productos[p.nombre] || 0) + 1;
+
+      });
+
+    }
+
+  });
+
+  let texto = "📊 RESUMEN DEL DÍA\n\n";
+
+  texto += "💰 TOTAL VENDIDO: $" + totalVenta + "\n\n";
+
+  texto += "🛒 PRODUCTOS VENDIDOS:\n\n";
+
+  for(let nombre in productos){
+
+    texto += "• " + nombre + ": " + productos[nombre] + "\n";
+
+  }
+
+  alert(texto);
+}
+  
 function enviar(){
 let nombre=document.getElementById("nombre").value;
 let tel=document.getElementById("telefono").value;
