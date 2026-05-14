@@ -278,6 +278,7 @@ font-size:18px;
 let carrito=[];
 let total=0;
 let contador={};
+let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
 
 function render(){
 let lista=document.getElementById("carrito");
@@ -366,21 +367,22 @@ function vaciar(){
 
 function resumenDia(){
 
-  let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+  let ventasGuardadas =
+    JSON.parse(localStorage.getItem("ventas")) || [];
 
   let hoy = new Date().toLocaleDateString();
 
-  let totalVenta = 0;
+  let totalDia = 0;
 
   let productos = {};
 
-  ventas.forEach(v => {
+  ventasGuardadas.forEach(v=>{
 
     if(v.fecha == hoy){
 
-      v.productos.forEach(p => {
+      totalDia += Number(v.total);
 
-        totalVenta += p.precio;
+      v.productos.forEach(p=>{
 
         productos[p.nombre] =
           (productos[p.nombre] || 0) + 1;
@@ -393,13 +395,13 @@ function resumenDia(){
 
   let texto = "📊 RESUMEN DEL DÍA\n\n";
 
-  texto += "💰 TOTAL VENDIDO: $" + totalVenta + "\n\n";
+  texto += "💰 TOTAL VENDIDO: $" + totalDia + "\n\n";
 
-  texto += "🛒 PRODUCTOS VENDIDOS:\n\n";
+  texto += "🛒 PRODUCTOS:\n\n";
 
   for(let nombre in productos){
 
-    texto += "• " + nombre + ": " + productos[nombre] + "\n";
+    texto += nombre + ": " + productos[nombre] + "\n";
 
   }
 
@@ -424,6 +426,14 @@ msg+="- "+i.nombre+" $"+i.precio+"\n";
 
 msg+="\nTOTAL: $"+total;
 
+ventas.push({
+  fecha: new Date().toLocaleDateString(),
+  productos: [...carrito],
+  total: total
+});
+
+localStorage.setItem("ventas", JSON.stringify(ventas));
+  
 window.open("https://wa.me/573235064237?text="+encodeURIComponent(msg));
 }
 </script>
