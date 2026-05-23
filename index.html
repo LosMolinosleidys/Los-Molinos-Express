@@ -414,11 +414,12 @@ let tel=document.getElementById("telefono").value;
 let dir=document.getElementById("direccion").value;
 let tipo=document.getElementById("tipo").value;
 let pago=document.getElementById("pago").value;
+let obse=document.getElementById("observacion").value;
 
 if(!nombre || !tel) return alert("Complete sus datos");
 
 let msg="🧾 *LOS MOLINOS AREPAS EXPRESS*\n\n";
-msg+="Cliente: "+nombre+"\nTel: "+tel+"\nEntrega: "+tipo+"\nDirección: "+dir+"\nPago: "+pago+"\n\nPedido:\n";
+msg+="Cliente: "+nombre+"\nTel: "+tel+"\nEntrega: "+tipo+"\nDirección: "+dir+"\nObservacion: "+obse+"\nPago: "+pago+"\n\nPedido:\n";
 
 carrito.forEach(i=>{
 msg+="- "+i.nombre+" $"+i.precio+"\n";
